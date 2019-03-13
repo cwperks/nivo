@@ -87,7 +87,7 @@ const Sankey = ({
     sankey(data)
 
     data.nodes.forEach(node => {
-        node.color = getColor(node)
+        node.color = node.color || getColor(node)
         node.label = getLabel(node)
         node.x = node.x0 + nodePaddingX
         node.y = node.y0

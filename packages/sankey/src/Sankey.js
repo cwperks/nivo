@@ -96,7 +96,7 @@ const Sankey = ({
     })
 
     data.links.forEach(link => {
-        link.color = getLinkColor(link)
+        link.color = link.color || getLinkColor(link)
     })
 
     const legendData = data.nodes.map(node => ({

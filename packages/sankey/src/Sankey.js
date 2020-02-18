@@ -118,9 +118,9 @@ const Sankey = ({
     let isCurrentLink = () => false
 
     if (currentLink) {
-        isCurrentNode = ({ id }) => id === currentLink.source.id || id === currentLink.target.id
+        isCurrentNode = ({ id }) => (id === currentLink.source.id || id === currentLink.target.id) && !currentLink.disabled
         isCurrentLink = ({ source, target }) =>
-            source.id === currentLink.source.id && target.id === currentLink.target.id
+            source.id === currentLink.source.id && target.id === currentLink.target.id && !currentLink.disabled
     }
 
     if (currentNode) {

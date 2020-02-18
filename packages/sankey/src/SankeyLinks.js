@@ -42,7 +42,7 @@ const SankeyLinks = ({
     theme,
 }) => {
     const getOpacity = link => {
-        if (!currentNode && !currentLink) return linkOpacity
+        if (!currentNode && (!currentLink || currentLink.disabled)) return linkOpacity
         if (isCurrentLink(link)) return linkHoverOpacity
         return linkHoverOthersOpacity
     }

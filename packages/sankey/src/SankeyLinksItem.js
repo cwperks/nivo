@@ -140,6 +140,11 @@ const enhance = compose(
     withPropsOnChange(
         ['link', 'theme', 'tooltip', 'tooltipFormat'],
         ({ link, theme, tooltip, tooltipFormat }) => {
+            if (link.disabled) {
+              return {
+                tooltip: null
+              }
+            }
             if (tooltip) {
                 return {
                     tooltip: <BasicTooltip id={tooltip(link)} enableChip={false} theme={theme} />,

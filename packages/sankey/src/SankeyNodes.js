@@ -41,7 +41,7 @@ const SankeyNodes = ({
     theme,
 }) => {
     const getOpacity = node => {
-        if (!currentNode && !currentLink) return nodeOpacity
+        if (!currentNode && (!currentLink || currentLink.disabled)) return nodeOpacity
         if (isCurrentNode(node)) return nodeHoverOpacity
         return nodeHoverOthersOpacity
     }

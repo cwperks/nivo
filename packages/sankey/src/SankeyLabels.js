@@ -9,6 +9,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import { rgb } from 'd3-color'
 import { TransitionMotion, spring } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor, motionPropTypes } from '@nivo/core'
 
@@ -53,6 +54,7 @@ const SankeyLabels = ({
         return {
             id: node.id,
             label: node.label,
+            disabled: node.disabled,
             x,
             y: node.y + node.height / 2,
             textAnchor,
@@ -64,6 +66,10 @@ const SankeyLabels = ({
         return (
             <g>
                 {labels.map(label => {
+                    let color = rgb(label.color);
+                    if (label.disabled) {
+                      color.opacity = 0;
+                    }
                     return (
                         <text
                             key={label.id}
@@ -72,7 +78,7 @@ const SankeyLabels = ({
                             transform={`translate(${label.x}, ${label.y}) rotate(${labelRotation})`}
                             style={{
                                 ...theme.labels.text,
-                                fill: label.color,
+                                fill: color,
                             }}
                         >
                             {label.label}
@@ -91,6 +97,10 @@ const SankeyLabels = ({
     return (
         <TransitionMotion
             styles={labels.map(label => {
+                let color = rgb(label.color);
+                if (label.disabled) {
+                  color.opacity = 0;
+                }
                 return {
                     key: label.id,
                     data: label,
@@ -98,7 +108,7 @@ const SankeyLabels = ({
                         x: spring(label.x, springProps),
                         y: spring(label.y, springProps),
                         rotation: spring(labelRotation, springProps),
-                        ...colorMotionSpring(label.color, springProps),
+                        ...colorMotionSpring(color, springProps),
                     },
                 }
             })}

@@ -80,6 +80,11 @@ SankeyNodesItem.propTypes = {
 
 const enhance = compose(
     withPropsOnChange(['node', 'theme', 'tooltip'], ({ node, theme, tooltip }) => {
+        if (node.disabled) {
+          return {
+            tooltip: null
+          }
+        }
         if (tooltip) {
             return {
                 tooltip: <BasicTooltip id={tooltip(node)} enableChip={false} theme={theme} />,
